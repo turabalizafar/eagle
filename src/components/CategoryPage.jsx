@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react'
 import { useParams, Link } from "react-router-dom";
 
 const images = {
@@ -113,23 +113,74 @@ const images = {
   ]
 };
 
+// const CategoryPage = () => {
+//   const { name } = useParams();
+//   const title = name.replace("-", " ");
+//   const categoryImages = images[name] || [];
+
+//   return (
+//     <section style={{ padding: "2rem" }}>
+//       <h2 style={{ textAlign: "center" }}>{title.toUpperCase()}</h2>
+//       <div className="gallery">
+//         {categoryImages.map((src, idx) => (
+//           <img key={idx} src={src} alt={`${name}-${idx}`} />
+//         ))}
+//       </div>
+//       <div style={{ textAlign: "center", marginTop: "1rem" }}>
+//         <Link to="/" style={{ color: "#0077cc", fontWeight: "bold" }}>
+//           ← Back to Home
+//         </Link>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default CategoryPage;
 const CategoryPage = () => {
   const { name } = useParams();
   const title = name.replace("-", " ");
   const categoryImages = images[name] || [];
 
+  const [selectedImage, setSelectedImage] = useState(null);
+
   return (
-    <section style={{ padding: "2rem" }}>
-      <h2 style={{ textAlign: "center" }}>{title.toUpperCase()}</h2>
+    <section className="category-section">
+      <h2 className="category-title">{title.toUpperCase()}</h2>
+
+      {/* Gallery Grid */}
       <div className="gallery">
         {categoryImages.map((src, idx) => (
-          <img key={idx} src={src} alt={`${name}-${idx}`} />
+          <img
+            key={idx}
+            src={src}
+            alt={`${name}-${idx}`}
+            className="gallery-img"
+            onClick={() => setSelectedImage(src)}
+          />
         ))}
       </div>
-      <div style={{ textAlign: "center", marginTop: "1rem" }}>
-        <Link to="/" style={{ color: "#0077cc", fontWeight: "bold" }}>
-          ← Back to Home
-        </Link>
+
+      {/* Popup Overlay */}
+      {selectedImage && (
+        <div className="popup" onClick={() => setSelectedImage(null)}>
+          <span
+            className="close-btn"
+            onClick={() => setSelectedImage(null)}
+          >
+            &times;
+          </span>
+          <img
+            src={selectedImage}
+            alt="Popup"
+            className="popup-img"
+            onClick={(e) => e.stopPropagation()} // prevent closing when clicking image
+          />
+        </div>
+      )}
+
+      {/* Back to Home */}
+      <div className="back-link">
+        <Link to="/">← Back to Home</Link>
       </div>
     </section>
   );
