@@ -22,6 +22,9 @@ const App = () => {
   const study_table = [
    '/assets/study table preview.jpg'
   ];
+  const decoration = [
+    '/assets/decoration preview.jpg'
+  ];
 
   return (
     <div>
@@ -37,6 +40,7 @@ const App = () => {
                 <div><CategoryGallery title="Wardrobes" images={wardrobe} route="/category/wardrobe" /></div>
                 <div><CategoryGallery title="Media Wall" images={media_wall} route="/category/media-wall" /></div>
                 <div><CategoryGallery title="Study Table" images={study_table} route="/category/study-table" /></div>
+                <div><CategoryGallery title="Decoration" images={decoration} route="/category/Decoration" /></div>
               </div>
               <Contact />
               <Footer />
